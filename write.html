@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 작성하기</title>
+    <!-- Firebase V8 스크립트 추가 -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <style>
+                #preview {
+            display: none;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>글 작성하기</h1>
+    <form id="post-form" enctype="multipart/form-data">
+        <div>
+            <label for="image">이미지 업로드:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+            <img id="preview" src="#" alt="이미지 미리보기">
+        </div>
+        <div>
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title">
+        </div>
+        <div>
+            <label for="subtitle">부제목:</label>
+            <input type="text" id="subtitle" name="subtitle">
+        </div>
+        <div>
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="6"></textarea>
+        </div>
+        <button type="button" onclick="submitPost()">작성</button>
+    </form>
+<a href="./display.html">test</a>
+<script>
+      document.getElementById('image').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+</script>
+    <script>
+        // Firebase 프로젝트 초기화
+        const firebaseConfig = {
+        apiKey: "AIzaSyAi_4j8FWuGHNPqp16xJnfVuv7UF_Bn1II",
+        authDomain: "school-33a9c.firebaseapp.com",
+        projectId: "school-33a9c",
+        storageBucket: "school-33a9c.appspot.com",
+        messagingSenderId: "884412392982",
+        appId: "1:884412392982:web:d87d749dab02ecdab9b737",
+        measurementId: "G-6G4XZMQ7MB"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Firebase 데이터베이스 및 스토리지 참조
+        const database = firebase.database();
+        const storage = firebase.storage();
+
+        // 게시물 제출 함수
+        async function submitPost() {
+            const imageFile = document.getElementById('image').files[0];
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const content = document.getElementById('content').value;
+
+            let imageUrl = '';
+
+            // 이미지 파일 업로드
+            if (imageFile) {
+                const storageRef = storage.ref();
+                const imageRef = storageRef.child(`images/${imageFile.name}`);
+                await imageRef.put(imageFile);
+                imageUrl = await imageRef.getDownloadURL();
+            }
+
+            // Firebase Realtime Database에 게시물 추가
+            const newPostRef = database.ref('posts').push();
+            newPostRef.set({
+                title: title,
+                subtitle: subtitle,
+                content: content,
+                imageUrl: imageUrl
+            });
+
+            // 입력값 초기화
+            document.getElementById('post-form').reset();
+
+            alert("게시물이 작성되었습니다!");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 2</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+        @font-face {
+            font-family: 'WAGURITTF';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403@1.0/WAGURITTF.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'YangjuByeolsanA1';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/YangjuByeolsanA1.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'YangjuByeolsanA1';
+        }
+        header {
+            background-color: rgb(14, 19, 29);
+            color: white;
+            width: 100%;
+        }
+        p {
+            margin-bottom: 0;
+        }
+        body {
+            background-color: rgb(240, 241, 244);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .post {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+        .post h2 {
+            margin-top: 0;
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .post .subtitle {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="../../img/세명컴고학교로고.png" alt="" width="250px"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 ms-auto" style="padding-right: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./SemyeongComputerHighSchool.html" style="color: white;">홈</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="color: white;">내정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="color: white;">채팅하기</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;  text-decoration-line: underline; text-decoration-style: wavy;">
+                                글쓰기
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="../sign.html">내정보</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container">
+        <h2>자료실</h2>
+        <div id="posts"></div>
+    </section>
+
+    <script>
+        // Firebase 프로젝트 초기화
+        const firebaseConfig = {
+            apiKey: "AIzaSyAi_4j8FWuGHNPqp16xJnfVuv7UF_Bn1II",
+            authDomain: "school-33a9c.firebaseapp.com",
+            projectId: "school-33a9c",
+            storageBucket: "school-33a9c.appspot.com",
+            messagingSenderId: "884412392982",
+            appId: "1:884412392982:web:d87d749dab02ecdab9b737",
+            measurementId: "G-6G4XZMQ7MB"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Firebase 데이터베이스 참조 가져오기
+        const database = firebase.database();
+
+        function loadPosts() {
+            const postsRef = database.ref('community2');
+            postsRef.on('value', function(snapshot) {
+                const postsContainer = document.getElementById('posts');
+                postsContainer.innerHTML = '';
+
+                snapshot.forEach(function(childSnapshot) {
+                    const post = childSnapshot.val();
+                    const postElement = document.createElement('div');
+                    postElement.className = 'post';
+
+                    if (post.image) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = post.image;
+                        postElement.appendChild(imgElement);
+                    }
+
+                    const titleElement = document.createElement('h2');
+                    titleElement.textContent = post.title;
+                    postElement.appendChild(titleElement);
+
+                    const subtitleElement = document.createElement('p');
+                    subtitleElement.className = 'subtitle';
+                    subtitleElement.textContent = post.subtitle;
+                    postElement.appendChild(subtitleElement);
+
+                    const contentElement = document.createElement('p');
+                    contentElement.textContent = post.content;
+                    postElement.appendChild(contentElement);
+
+                    const writerElement = document.createElement('p');
+                    writerElement.textContent = '글쓴이: ' + post.writer;
+                    postElement.appendChild(writerElement);
+
+                    postsContainer.appendChild(postElement);
+                });
+            });
+        }
+
+        loadPosts();
+    </script>
+</body>
+</html>

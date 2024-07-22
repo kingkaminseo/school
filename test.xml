@@ -1,0 +1,259 @@
+<hisTimetable>
+<head>
+<list_total_count>3586</list_total_count>
+<RESULT>
+<CODE>INFO-000</CODE>
+<MESSAGE>정상 처리되었습니다.</MESSAGE>
+</RESULT>
+</head>
+<row>
+<ATPT_OFCDC_SC_CODE>
+<![CDATA[ B10 ]]>
+</ATPT_OFCDC_SC_CODE>
+<ATPT_OFCDC_SC_NM>
+<![CDATA[ 서울특별시교육청 ]]>
+</ATPT_OFCDC_SC_NM>
+<SD_SCHUL_CODE>
+<![CDATA[ 7010537 ]]>
+</SD_SCHUL_CODE>
+<SCHUL_NM>
+<![CDATA[ 세명컴퓨터고등학교 ]]>
+</SCHUL_NM>
+<AY>
+<![CDATA[ 2023 ]]>
+</AY>
+<SEM>
+<![CDATA[ 1 ]]>
+</SEM>
+<ALL_TI_YMD>
+<![CDATA[ 20230306 ]]>
+</ALL_TI_YMD>
+<DGHT_CRSE_SC_NM>
+<![CDATA[ 주간 ]]>
+</DGHT_CRSE_SC_NM>
+<ORD_SC_NM>
+<![CDATA[ 특성화 ]]>
+</ORD_SC_NM>
+<DDDEP_NM>
+<![CDATA[ 인공지능소프트웨어과 ]]>
+</DDDEP_NM>
+<GRADE>
+<![CDATA[ 3 ]]>
+</GRADE>
+<CLRM_NM>
+<![CDATA[ 6 ]]>
+</CLRM_NM>
+<CLASS_NM>
+<![CDATA[ 6 ]]>
+</CLASS_NM>
+<PERIO>
+<![CDATA[ 1 ]]>
+</PERIO>
+<ITRT_CNTNT>
+<![CDATA[ * 프로그래밍 언어 활용 ]]>
+</ITRT_CNTNT>
+<LOAD_DTM>
+<![CDATA[ 20230312 ]]>
+</LOAD_DTM>
+</row>
+<row>
+<ATPT_OFCDC_SC_CODE>
+<![CDATA[ B10 ]]>
+</ATPT_OFCDC_SC_CODE>
+<ATPT_OFCDC_SC_NM>
+<![CDATA[ 서울특별시교육청 ]]>
+</ATPT_OFCDC_SC_NM>
+<SD_SCHUL_CODE>
+<![CDATA[ 7010537 ]]>
+</SD_SCHUL_CODE>
+<SCHUL_NM>
+<![CDATA[ 세명컴퓨터고등학교 ]]>
+</SCHUL_NM>
+<AY>
+<![CDATA[ 2023 ]]>
+</AY>
+<SEM>
+<![CDATA[ 1 ]]>
+</SEM>
+<ALL_TI_YMD>
+<![CDATA[ 20230306 ]]>
+</ALL_TI_YMD>
+<DGHT_CRSE_SC_NM>
+<![CDATA[ 주간 ]]>
+</DGHT_CRSE_SC_NM>
+<ORD_SC_NM>
+<![CDATA[ 특성화 ]]>
+</ORD_SC_NM>
+<DDDEP_NM>
+<![CDATA[ 인공지능소프트웨어과 ]]>
+</DDDEP_NM>
+<GRADE>
+<![CDATA[ 3 ]]>
+</GRADE>
+<CLRM_NM>
+<![CDATA[ 6 ]]>
+</CLRM_NM>
+<CLASS_NM>
+<![CDATA[ 6 ]]>
+</CLASS_NM>
+<PERIO>
+<![CDATA[ 2 ]]>
+</PERIO>
+<ITRT_CNTNT>
+<![CDATA[ * 프로그래밍 언어 활용 ]]>
+</ITRT_CNTNT>
+<LOAD_DTM>
+<![CDATA[ 20230312 ]]>
+</LOAD_DTM>
+</row>
+<row>
+<ATPT_OFCDC_SC_CODE>
+<![CDATA[ B10 ]]>
+</ATPT_OFCDC_SC_CODE>
+<ATPT_OFCDC_SC_NM>
+<![CDATA[ 서울특별시교육청 ]]>
+</ATPT_OFCDC_SC_NM>
+<SD_SCHUL_CODE>
+<![CDATA[ 7010537 ]]>
+</SD_SCHUL_CODE>
+<SCHUL_NM>
+<![CDATA[ 세명컴퓨터고등학교 ]]>
+</SCHUL_NM>
+<AY>
+<![CDATA[ 2023 ]]>
+</AY>
+<SEM>
+<![CDATA[ 1 ]]>
+</SEM>
+<ALL_TI_YMD>
+<![CDATA[ 20230306 ]]>
+</ALL_TI_YMD>
+<DGHT_CRSE_SC_NM>
+<![CDATA[ 주간 ]]>
+</DGHT_CRSE_SC_NM>
+<ORD_SC_NM>
+<![CDATA[ 특성화 ]]>
+</ORD_SC_NM>
+<DDDEP_NM>
+<![CDATA[ 인공지능소프트웨어과 ]]>
+</DDDEP_NM>
+<GRADE>
+<![CDATA[ 3 ]]>
+</GRADE>
+<CLRM_NM>
+<![CDATA[ 6 ]]>
+</CLRM_NM>
+<CLASS_NM>
+<![CDATA[ 6 ]]>
+</CLASS_NM>
+<PERIO>
+<![CDATA[ 3 ]]>
+</PERIO>
+<ITRT_CNTNT>
+<![CDATA[ * 인공지능 플랫폼 설계 ]]>
+</ITRT_CNTNT>
+<LOAD_DTM>
+<![CDATA[ 20230312 ]]>
+</LOAD_DTM>
+</row>
+<row>
+<ATPT_OFCDC_SC_CODE>
+<![CDATA[ B10 ]]>
+</ATPT_OFCDC_SC_CODE>
+<ATPT_OFCDC_SC_NM>
+<![CDATA[ 서울특별시교육청 ]]>
+</ATPT_OFCDC_SC_NM>
+<SD_SCHUL_CODE>
+<![CDATA[ 7010537 ]]>
+</SD_SCHUL_CODE>
+<SCHUL_NM>
+<![CDATA[ 세명컴퓨터고등학교 ]]>
+</SCHUL_NM>
+<AY>
+<![CDATA[ 2023 ]]>
+</AY>
+<SEM>
+<![CDATA[ 1 ]]>
+</SEM>
+<ALL_TI_YMD>
+<![CDATA[ 20230306 ]]>
+</ALL_TI_YMD>
+<DGHT_CRSE_SC_NM>
+<![CDATA[ 주간 ]]>
+</DGHT_CRSE_SC_NM>
+<ORD_SC_NM>
+<![CDATA[ 특성화 ]]>
+</ORD_SC_NM>
+<DDDEP_NM>
+<![CDATA[ 인공지능소프트웨어과 ]]>
+</DDDEP_NM>
+<GRADE>
+<![CDATA[ 3 ]]>
+</GRADE>
+<CLRM_NM>
+<![CDATA[ 6 ]]>
+</CLRM_NM>
+<CLASS_NM>
+<![CDATA[ 6 ]]>
+</CLASS_NM>
+<PERIO>
+<![CDATA[ 4 ]]>
+</PERIO>
+<ITRT_CNTNT>
+<![CDATA[ * 인공지능 플랫폼 설계 ]]>
+</ITRT_CNTNT>
+<LOAD_DTM>
+<![CDATA[ 20230312 ]]>
+</LOAD_DTM>
+</row>
+<row>
+<ATPT_OFCDC_SC_CODE>
+<![CDATA[ B10 ]]>
+</ATPT_OFCDC_SC_CODE>
+<ATPT_OFCDC_SC_NM>
+<![CDATA[ 서울특별시교육청 ]]>
+</ATPT_OFCDC_SC_NM>
+<SD_SCHUL_CODE>
+<![CDATA[ 7010537 ]]>
+</SD_SCHUL_CODE>
+<SCHUL_NM>
+<![CDATA[ 세명컴퓨터고등학교 ]]>
+</SCHUL_NM>
+<AY>
+<![CDATA[ 2023 ]]>
+</AY>
+<SEM>
+<![CDATA[ 1 ]]>
+</SEM>
+<ALL_TI_YMD>
+<![CDATA[ 20230306 ]]>
+</ALL_TI_YMD>
+<DGHT_CRSE_SC_NM>
+<![CDATA[ 주간 ]]>
+</DGHT_CRSE_SC_NM>
+<ORD_SC_NM>
+<![CDATA[ 특성화 ]]>
+</ORD_SC_NM>
+<DDDEP_NM>
+<![CDATA[ 인공지능소프트웨어과 ]]>
+</DDDEP_NM>
+<GRADE>
+<![CDATA[ 3 ]]>
+</GRADE>
+<CLRM_NM>
+<![CDATA[ 6 ]]>
+</CLRM_NM>
+<CLASS_NM>
+<![CDATA[ 6 ]]>
+</CLASS_NM>
+<PERIO>
+<![CDATA[ 5 ]]>
+</PERIO>
+<ITRT_CNTNT>
+<![CDATA[ * 애플리케이션 배포 ]]>
+</ITRT_CNTNT>
+<LOAD_DTM>
+<![CDATA[ 20230312 ]]>
+</LOAD_DTM>
+</row>
+</hisTimetable>

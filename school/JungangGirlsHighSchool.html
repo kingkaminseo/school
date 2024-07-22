@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세명컴퓨터 고등학교</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+                * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            background-color: rgb(248, 197, 55);
+            color: white;
+            width: 100%;
+            /* background-color: #4CAF50; */
+        }
+        P {
+          margin-bottom: 0;
+        }
+
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src="https://i.namu.wiki/i/u7wAblbwGrkh5xEEEXT7onXfqHIM0sPndKDIGKGuwXSVCcjnnGcIWEqPrGz0UySwOvclywsuKK_D0IJlAJIWjg.webp" alt="" width="250px"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto" style="padding-right: 100px;">
+
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="../sign.html">내정보</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div style="display: flex;">
+    <section style="border: 1px solid red; flex: 8;">
+      <h3 style="text-align: center;">우리학교 게시글</h3>
+    </section>
+    <section style="border: 1px solid red; flex: 2;">
+      <h5>급식 정보</h5>
+<!-- <input type="date" name="" id="button" value=""onchange="button()">
+<div id="meal-info"></div> -->
+    </section>
+  </div>
+
+
+
+
+
+
+
+
+
+    <script>
+      // API 요청을 보낼 기본 URL
+      const apiUrlBase = "https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010537";
+      
+      // 버튼 클릭 시 실행되는 함수
+      function button() {
+          // 선택된 날짜 가져오기
+          var dateValue = document.getElementById('button').value;
+          var date = dateValue.replace(/-/g,'');
+          console.log(date);
+      
+          // API 요청을 보낼 URL 설정
+          const apiUrl = `${apiUrlBase}&MLSV_YMD=${date}`;
+      
+          // API 요청 후 급식 정보 표시
+          fetchMealInfo(apiUrl);
+      }
+      
+      // API 요청 보내는 함수
+      async function fetchMealInfo(apiUrl) {
+        try {
+          const response = await fetch(apiUrl);
+          const mealInfoXML = await response.text();
+          displayMealInfo(mealInfoXML);
+        } catch (error) {
+          console.error("API 요청 중 오류가 발생했습니다:", error);
+        }
+      }
+      
+      // HTML로 급식 정보를 표시하는 함수
+      function displayMealInfo(mealInfoXML) {
+        try {
+          // XML 파싱
+          const parser = new DOMParser();
+          const mealInfoDoc = parser.parseFromString(mealInfoXML, "text/xml");
+      
+          // 급식 정보 추출
+          const mealData = mealInfoDoc.getElementsByTagName("DDISH_NM")[0].textContent;
+      
+          // 숫자와 마침표 제거하는 함수
+          function removeNumbers(text) {
+            return text.replace(/[()\d.]+/g, '').trim();
+          }
+      
+          // HTML로 변환하여 표시
+          const mealList = mealData.split("<br/>").map(item => `<p>${removeNumbers(item)}</p>`).join("");
+          document.getElementById("meal-info").innerHTML = mealList;
+        } catch (error) {
+          document.getElementById('meal-info').innerHTML = '<p>해당 날짜에는 급식이 없거나 아니면 교육청 탓임 ㅇㅇ</p>'
+        }
+      }
+      
+      // 페이지 로드 시 현재 날짜 설정
+      window.onload = function() {
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          let mm = today.getMonth() + 1;
+          let dd = today.getDate();
+      
+          if (mm < 10) mm = '0' + mm;
+          if (dd < 10) dd = '0' + dd;
+      
+          const dateString = `${yyyy}-${mm}-${dd}`;
+          document.getElementById('button').value = dateString;
+      
+          // 페이지 로드 시 오늘 날짜의 급식 정보 표시
+          button();
+      };
+      </script>
+</body>
+</html>

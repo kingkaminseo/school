@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="icon" type="image/y-icon" href="../../img/icons8-학교-96.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세명컴퓨터 고등학교</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+      @font-face {
+    font-family: 'WAGURITTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403@1.0/WAGURITTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'YangjuByeolsanA1';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/YangjuByeolsanA1.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+                * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'YangjuByeolsanA1';
+        }
+        header {
+            background-color: rgb(14, 19, 29);
+            color: white;
+            width: 100%;
+            /* background-color: #4CAF50; */
+        }
+        P {
+          margin-bottom: 0;
+        }
+
+body {
+  background-color: rgb(240, 241, 244);
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+ul {
+  list-style-type: none;
+}
+
+
+
+
+
+
+#community-section {
+    width: 100%;
+    background-color: white;
+    border: 1.7px solid rgb(255, 255, 255);
+    border-radius: 15px;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+#post-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#post-list li {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+#post-list li strong {
+    font-size: 1.2em;
+    color: #333;
+}
+
+#post-list li em {
+    color: #777;
+}
+
+#post-list li img {
+    max-width: 200px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#post-list li .author {
+    font-style: italic;
+    color: #555;
+    margin-top: 10px;
+}
+
+#postiticon {
+    position: fixed;
+    bottom: 80px;
+    right: 100px;
+    z-index: 2;
+}
+
+#postiticon > img {
+    width: 100px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+#postit {
+    width: 300px;
+    position: fixed;
+    bottom: 200px;
+    right: 150px;
+    z-index: 2;
+    
+}
+
+#postit-text {
+    position: fixed;
+    bottom: 200px;
+    right: 150px;
+    z-index: 2;
+    height: 280px;
+}
+
+textarea {
+    font-size: 15px;
+    font-family: 'Sunflower', sans-serif;
+    resize: none;
+    border: none;
+    outline: none;
+    word-spacing: 5px;
+    letter-spacing: 0.5px;
+    width: 300px;
+}
+
+
+textarea::selection {
+    background-color: #ffb3b78b; /* 원하는 색상으로 변경 */
+    color: black; /* 원하는 텍스트 색상으로 변경 */
+    font-weight: bold;
+}
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src="../../img/세명컴고학교로고.png" alt="" width="250px"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto" style="padding-right: 100px;">
+                  <li class="nav-item">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="background-color: rgb(14, 19, 29); border: 1px solid white;">
+                      현재 활동중 보기
+                    </button>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="../school/세명컴고/SemyeongComputerHighSchool.html" style="color: white;  text-decoration-line: underline;
+                    text-decoration-style: wavy;">홈</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./mypage.html" style="color: white;">내정보</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../../public/index.html" style="color: white;">채팅하기</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                      글쓰기
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="./write.html">커뮤니티 쓰기</a></li>
+                      <li><a class="dropdown-item" href="#">게시물 쓰기</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="../sign.html">뭐 넣지</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+          </nav>
+    </header>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" /><button>Send</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    var name = localStorage.getItem("이름")
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messages = document.getElementById('messages');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message',name+': ' +input.value);
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', function(msg) {
+      const item = document.createElement('li');
+      item.textContent = msg;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  </script>
+</body>
+</html>

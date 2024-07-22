@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <h1>게시판</h1>
+    <form id="post-form">
+        <textarea id="post-content" placeholder="게시글 내용"></textarea>
+        <button type="submit">글쓰기</button>
+    </form>
+    <div id="posts"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"></script>
+
+    <!-- Your Firebase configuration -->
+    <script>
+            const firebaseConfig = {
+        apiKey: "AIzaSyAi_4j8FWuGHNPqp16xJnfVuv7UF_Bn1II",
+        authDomain: "school-33a9c.firebaseapp.com",
+        projectId: "school-33a9c",
+        storageBucket: "school-33a9c.appspot.com",
+        messagingSenderId: "884412392982",
+        appId: "1:884412392982:web:d87d749dab02ecdab9b737",
+        measurementId: "G-6G4XZMQ7MB"
+        };
+      
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const postForm = document.getElementById("post-form");
+        const postContent = document.getElementById("post-content");
+        const postsContainer = document.getElementById("posts");
+
+        // 게시글 작성 폼 제출 시
+        postForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const content = postContent.value.trim();
+            if (content !== "") {
+                addPost(content);
+                postContent.value = ""; // 입력란 비우기
+            }
+        });
+
+        // 게시글 추가 함수
+        function addPost(content) {
+            db.collection("posts").add({
+                content: content,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+
+        // 게시글 불러오기
+        function loadPosts() {
+            db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+                postsContainer.innerHTML = "";
+                snapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const postElement = document.createElement("div");
+                    postElement.textContent = post.content;
+                    postsContainer.appendChild(postElement);
+                });
+            });
+        }
+
+        // 페이지 로드 시 게시글 불러오기
+        window.addEventListener("load", () => {
+            loadPosts();
+        });
+    </script>
+</body>
+</html>

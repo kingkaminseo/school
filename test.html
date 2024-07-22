@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>세명컴퓨터고등학교 학생 목록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .student, .online {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>세명컴퓨터고등학교 학생 목록</h1>
+    <div id="student-list">
+        <h2>전체 학생 목록</h2>
+    </div>
+    <div id="online-users">
+        <h2>현재 접속 중인 사용자</h2>
+    </div>
+    <button id="logout-btn">로그아웃</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyAi_4j8FWuGHNPqp16xJnfVuv7UF_Bn1II",
+        authDomain: "school-33a9c.firebaseapp.com",
+        projectId: "school-33a9c",
+        storageBucket: "school-33a9c.appspot.com",
+        messagingSenderId: "884412392982",
+        appId: "1:884412392982:web:d87d749dab02ecdab9b737",
+        measurementId: "G-6G4XZMQ7MB"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        function updateOnlineStatus(user, isOnline) {
+            const userRef = doc(db, "users", user.uid);
+            updateDoc(userRef, {
+                isOnline: isOnline
+            });
+        }
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                updateOnlineStatus(user, true);
+                window.addEventListener("beforeunload", () => updateOnlineStatus(user, false));
+                loadStudentData();
+            } else {
+                // 사용자가 로그아웃됨
+            }
+        });
+
+        document.getElementById("logout-btn").addEventListener("click", () => {
+            const user = auth.currentUser;
+            if (user) {
+                updateOnlineStatus(user, false);
+                signOut(auth);
+            }
+        });
+
+        function loadStudentData() {
+            const studentListEl = document.getElementById("student-list");
+            const onlineUsersEl = document.getElementById("online-users");
+
+            const q = query(collection(db, "users"), where("school", "==", "세명컴퓨터고등학교"));
+            onSnapshot(q, (querySnapshot) => {
+                studentListEl.innerHTML = "<h2>전체 학생 목록</h2>";
+                onlineUsersEl.innerHTML = "<h2>현재 접속 중인 사용자</h2>";
+                querySnapshot.forEach((doc) => {
+                    const student = doc.data();
+                    const studentHTML = `<div class="student">${student.name} (${student.email})</div>`;
+                    studentListEl.innerHTML += studentHTML;
+                    if (student.isOnline) {
+                        const onlineHTML = `<div class="online">${student.name} (${student.email})</div>`;
+                        onlineUsersEl.innerHTML += onlineHTML;
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 65vh;">
+        <img src="./img/6338750.jpg" alt="" style="width: 50%;">
+        <p style="text-align: center; position: absolute; bottom: 200px;">
+            현재 <q><b id="schoolName">이</b></q>는 서비스를 제공하고 있지 않습니다.
+            서비스가 제공되는 학교를 확인해주세요. <br>문의를 주시면 빠른시일내에 추가해 드리겠습니다. 감사합니다.
+        </p>
+    </div>
+<script>
+        window.onload = function() {
+            document.getElementById('schoolName').innerText = localStorage.getItem('학교이름')
+        }   
+</script>
+</body>
+</html>

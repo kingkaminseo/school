@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 2 글쓰기</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+        @font-face {
+            font-family: 'WAGURITTF';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403@1.0/WAGURITTF.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'YangjuByeolsanA1';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/YangjuByeolsanA1.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'YangjuByeolsanA1';
+        }
+        header {
+            background-color: rgb(14, 19, 29);
+            color: white;
+            width: 100%;
+        }
+        p {
+            margin-bottom: 0;
+        }
+        body {
+            background-color: rgb(240, 241, 244);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        #preview {
+            width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 15px;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src="../../img/세명컴고학교로고.png" alt="" width="250px"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto" style="padding-right: 100px;">
+                  <li class="nav-item">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="background-color: rgb(14, 19, 29); border: 1px solid white;">
+                      현재 활동중 보기
+                    </button>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" style="color: white;  text-decoration-line: underline;
+                    text-decoration-style: wavy;">홈</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./mypage.html" style="color: white;">내정보</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../../public/index.html" style="color: white;">채팅하기</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./community2_list.html" style="color: white;">자료실</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                      글쓰기
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="./write.html">커뮤니티 쓰기</a></li>
+                      <li><a class="dropdown-item" href="./community2_input.html">자료실 글쓰기</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="../../sign.html">로그인으로</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+          </nav>
+    </header>
+
+    <section style="width: 100%; margin-top: 30px;">
+        <h3 style="margin-left: 100px;">자료실 글쓰기</h3>
+        <form id="post-form" enctype="multipart/form-data">
+            <div>
+                <label for="image">이미지 업로드:</label>
+                <input type="file" id="image" name="image" accept="image/*" onchange="readURL(this);">
+                <img id="preview" />
+            </div>
+            <div>
+                <label for="title">제목:</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div>
+                <label for="subtitle">부제목:</label>
+                <input type="text" id="subtitle" name="subtitle">
+            </div>
+            <div>
+                <label for="content">내용:</label>
+                <textarea id="content" name="content" rows="6"></textarea>
+            </div>
+            <div>
+                <label for="writer">글쓴이:</label>
+                <input type="text" id="writer" name="writer" readonly>
+            </div>
+            <button type="button" onclick="submitPost()" style="border: none; background-color: rgb(15, 82, 252); color: white; width: 80px; border-radius: 5px;">작성</button>
+        </form>
+    </section>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                document.getElementById('preview').src = "";
+            }
+        }
+
+        console.log(localStorage.getItem('이름'))
+        document.getElementById('writer').value = localStorage.getItem('이름')
+
+        // Firebase 프로젝트 초기화
+        const firebaseConfig = {
+            apiKey: "AIzaSyAi_4j8FWuGHNPqp16xJnfVuv7UF_Bn1II",
+            authDomain: "school-33a9c.firebaseapp.com",
+            projectId: "school-33a9c",
+            storageBucket: "school-33a9c.appspot.com",
+            messagingSenderId: "884412392982",
+            appId: "1:884412392982:web:d87d749dab02ecdab9b737",
+            measurementId: "G-6G4XZMQ7MB"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Firebase 데이터베이스와 스토리지 참조 가져오기
+        const database = firebase.database();
+        const storage = firebase.storage();
+
+        function submitPost() {
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const content = document.getElementById('content').value;
+            const writer = document.getElementById('writer').value;
+            const file = document.getElementById('image').files[0];
+
+            if (!title || !content || !writer) {
+                alert("제목, 내용, 글쓴이는 필수 입력 항목입니다.");
+                return;
+            }
+
+            if (file) {
+                const storageRef = storage.ref('images/' + file.name);
+                const uploadTask = storageRef.put(file);
+
+                uploadTask.on('state_changed',
+                    function(snapshot) {
+                        console.log(snapshot.bytesTransferred / snapshot.totalBytes * 100 + "% done");
+                    },
+                    function(error) {
+                        console.error("Error uploading file:", error);
+                    },
+                    function() {
+                        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                            savePost(title, subtitle, content, writer, downloadURL);
+                        });
+                    }
+                );
+            } else {
+                savePost(title, subtitle, content, writer, null);
+            }
+        }
+
+        function savePost(title, subtitle, content, writer, imageURL) {
+            const newPostKey = database.ref().child('community2').push().key;
+
+            const postData = {
+                title: title,
+                subtitle: subtitle,
+                content: content,
+                writer: writer,
+                image: imageURL
+            };
+
+            const updates = {};
+            updates['/community2/' + newPostKey] = postData;
+
+            database.ref().update(updates, function(error) {
+                if (error) {
+                    console.error("Error saving post:", error);
+                } else {
+                    alert("게시물이 성공적으로 저장되었습니다!");
+                    document.getElementById('post-form').reset();
+                    document.getElementById('preview').src = "";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

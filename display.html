@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 목록</title>
+    <!-- Firebase V8 스크립트 추가 -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+</head>
+<body>
+    <h1>글 목록</h1>
+    <ul id="post-list"></ul>
+
+    <script>
+        // Firebase 프로젝트 초기화
+        const firebaseConfig = {
+        apiKey: "AIzaSyAi_4j8FWuGHNPqp16xJnfVuv7UF_Bn1II",
+        authDomain: "school-33a9c.firebaseapp.com",
+        projectId: "school-33a9c",
+        storageBucket: "school-33a9c.appspot.com",
+        messagingSenderId: "884412392982",
+        appId: "1:884412392982:web:d87d749dab02ecdab9b737",
+        measurementId: "G-6G4XZMQ7MB"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Firebase 데이터베이스 참조
+        const database = firebase.database();
+
+        // 게시물 불러오기
+        database.ref('posts').on('value', (snapshot) => {
+            const postList = document.getElementById('post-list');
+            postList.innerHTML = ''; // 목록 초기화
+
+            snapshot.forEach((childSnapshot) => {
+                const postData = childSnapshot.val();
+                const title = postData.title;
+                const subtitle = postData.subtitle;
+                const content = postData.content;
+                const imageUrl = postData.imageUrl;
+                const writer = postData.writer;
+
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <strong>${title}</strong><br>
+                    <em>${subtitle}</em><br>
+                    ${content}<br>
+                    글쓴이: ${writer}<br>
+                    ${imageUrl ? `<img src="${imageUrl}" alt="이미지" style="max-width: 200px;"><br>` : ''}
+                `;
+                postList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>

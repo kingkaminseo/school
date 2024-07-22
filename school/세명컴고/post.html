@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Details</title>
+    <style>
+        /* Add your styles here */
+        #post-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border: 1.7px solid rgb(222, 225, 231);
+            border-radius: 15px;
+        }
+        #post-container img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .author {
+            font-style: italic;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'YangjuByeolsanA1';
+        }
+        header {
+            background-color: rgb(14, 19, 29);
+            color: white;
+            width: 100%;
+            /* background-color: #4CAF50; */
+        }
+    </style>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img src="../../img/세명컴고학교로고.png" alt="" width="250px"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse ml-auto" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto" style="padding-right: 100px;">
+
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="./SemyeongComputerHighSchool.html" style="color: white;  text-decoration-line: underline;
+                    text-decoration-style: wavy;">홈</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: white;">내정보</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: white;">채팅하기</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                      글쓰기
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="./write.html">커뮤니티 쓰기</a></li>
+                      <li><a class="dropdown-item" href="#">게시물 쓰기</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="../sign.html">뭐 넣지</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <div id="post-container"></div>
+
+    <script>
+            const firebaseConfig = {
+        apiKey: "AIzaSyAi_4j8FWuGHNPqp16xJnfVuv7UF_Bn1II",
+        authDomain: "school-33a9c.firebaseapp.com",
+        projectId: "school-33a9c",
+        storageBucket: "school-33a9c.appspot.com",
+        messagingSenderId: "884412392982",
+        appId: "1:884412392982:web:d87d749dab02ecdab9b737",
+        measurementId: "G-6G4XZMQ7MB"
+        };
+
+        // Firebase 초기화
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // URL에서 게시물 ID를 가져옴
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get('id');
+
+        // 데이터베이스에서 게시물 데이터 가져오기
+        database.ref('posts/' + postId).once('value').then((snapshot) => {
+            const postData = snapshot.val();
+            if (postData) {
+                const postContainer = document.getElementById('post-container');
+                const title = postData.title;
+                const subtitle = postData.subtitle;
+                const content = postData.content;
+                const imageUrl = postData.imageUrl;
+                const writer = postData.writer;
+
+                postContainer.innerHTML = `
+                    <h1>${title}</h1>
+                    <h2>${subtitle}</h2>
+                    ${imageUrl ? `<img src="${imageUrl}" alt="이미지">` : ''}
+                    <p>${content}</p>
+                    <span class="author">글쓴이: ${writer}</span>
+                    
+                `;
+            } else {
+                document.getElementById('post-container').innerHTML = '<p>게시물을 찾을 수 없습니다.</p>';
+            }
+        }).catch((error) => {
+            console.error('게시물 데이터를 가져오는 중 오류 발생:', error);
+            document.getElementById('post-container').innerHTML = '<p>게시물 데이터를 가져오는 중 오류가 발생했습니다.</p>';
+        });
+    </script>
+</body>
+</html>
